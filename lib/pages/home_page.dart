@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:semana9_pokedex/constants.dart';
 import 'package:semana9_pokedex/models/pokemon_model.dart';
 import 'package:semana9_pokedex/ui/widgets/grid_item_widget.dart';
 
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     for (var item in body['pokemon']) {
       pokemons.add(Pokemon.fromJson(item));
     }
+    pokemonsGlobal = pokemons;
     setState(() {});
   }
 

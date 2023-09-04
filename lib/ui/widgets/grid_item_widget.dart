@@ -16,6 +16,7 @@ class GridItemWidget extends StatelessWidget {
     // print(colorBackgroundPokemon.map((e) => e));
     return GestureDetector(
       onTap: () {
+        print(pokemon.toJson());
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -27,7 +28,7 @@ class GridItemWidget extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          // color: colorBackgroundPokemon["Grass"],
+          color: colorBackgroundPokemon[pokemon.type?.first] ?? Colors.grey,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Stack(

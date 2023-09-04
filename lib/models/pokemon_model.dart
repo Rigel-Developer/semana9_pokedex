@@ -15,24 +15,27 @@ class Pokemon {
   List<double>? multipliers;
   List<String>? weaknesses;
   List<NextEvolution>? nextEvolution;
+  List<PrevEvolution>? prevEvolution;
 
-  Pokemon(
-      {this.id,
-      this.num,
-      this.name,
-      this.img,
-      this.type,
-      this.height,
-      this.weight,
-      this.candy,
-      this.candyCount,
-      this.egg,
-      this.spawnChance,
-      this.avgSpawns,
-      this.spawnTime,
-      this.multipliers,
-      this.weaknesses,
-      this.nextEvolution});
+  Pokemon({
+    this.id,
+    this.num,
+    this.name,
+    this.img,
+    this.type,
+    this.height,
+    this.weight,
+    this.candy,
+    this.candyCount,
+    this.egg,
+    this.spawnChance,
+    this.avgSpawns,
+    this.spawnTime,
+    this.multipliers,
+    this.weaknesses,
+    this.nextEvolution,
+    this.prevEvolution,
+  });
 
   Pokemon.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,6 +57,12 @@ class Pokemon {
       nextEvolution = <NextEvolution>[];
       json['next_evolution'].forEach((v) {
         nextEvolution!.add(NextEvolution.fromJson(v));
+      });
+    }
+    if (json['prev_evolution'] != null) {
+      prevEvolution = <PrevEvolution>[];
+      json['prev_evolution'].forEach((v) {
+        prevEvolution!.add(PrevEvolution.fromJson(v));
       });
     }
   }
@@ -78,6 +87,9 @@ class Pokemon {
     if (nextEvolution != null) {
       data['next_evolution'] = nextEvolution!.map((v) => v.toJson()).toList();
     }
+    if (prevEvolution != null) {
+      data['prev_evolution'] = prevEvolution!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -89,6 +101,25 @@ class NextEvolution {
   NextEvolution({this.num, this.name});
 
   NextEvolution.fromJson(Map<String, dynamic> json) {
+    num = json['num'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['num'] = num;
+    data['name'] = name;
+    return data;
+  }
+}
+
+class PrevEvolution {
+  String? num;
+  String? name;
+
+  PrevEvolution({this.num, this.name});
+
+  PrevEvolution.fromJson(Map<String, dynamic> json) {
     num = json['num'];
     name = json['name'];
   }

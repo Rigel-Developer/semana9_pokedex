@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class ItemTypesWidget extends StatelessWidget {
   String type;
+  Color? color;
   ItemTypesWidget({
     super.key,
     required this.type,
+    this.color,
   });
 
   @override
@@ -19,7 +21,7 @@ class ItemTypesWidget extends StatelessWidget {
         vertical: 6,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.27),
+        color: color ?? Colors.grey.withOpacity(0.5),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(

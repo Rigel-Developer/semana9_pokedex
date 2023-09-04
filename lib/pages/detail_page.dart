@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:semana9_pokedex/constants.dart';
 import 'package:semana9_pokedex/models/pokemon_model.dart';
+import 'package:semana9_pokedex/ui/widgets/custom_separator_wdiget.dart';
 import 'package:semana9_pokedex/ui/widgets/item_types_widget.dart';
 import 'package:semana9_pokedex/ui/widgets/pokemon_detail_widget.dart';
 
@@ -15,10 +17,11 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color(0xff98CDBD),
+      backgroundColor:
+          colorBackgroundPokemon[pokemon.type!.first] ?? Colors.grey,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0xff98CDBD),
+        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             onPressed: () {},
@@ -112,29 +115,221 @@ class DetailPage extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
                           children: [
-                            const Text(
+                            Text(
                               "About Pokemon",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
+                                color: colorBackgroundPokemon[
+                                        pokemon.type!.first] ??
+                                    Colors.grey,
+                                decoration: TextDecoration.underline,
                               ),
                             ),
-                            PokemonDetailWidget(
-                              title: "Height",
-                              value: pokemon.height!,
+                            const SizedBox(
+                              height: 10,
                             ),
-                            PokemonDetailWidget(
-                              title: "Weight",
-                              value: pokemon.weight!,
+                            Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                PokemonDetailWidget(
+                                  title: "Height",
+                                  value: pokemon.height!,
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                                CustomSeparator(
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                                PokemonDetailWidget(
+                                  title: "Weight",
+                                  value: pokemon.weight!,
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                                CustomSeparator(
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                                PokemonDetailWidget(
+                                  title: "Spawn Time",
+                                  value: pokemon.spawnTime!,
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                                PokemonDetailWidget(
+                                  title: "Candy",
+                                  value:
+                                      pokemon.candyCount?.toString() ?? "0.0",
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                                PokemonDetailWidget(
+                                  title: "Egg",
+                                  value: pokemon.egg!,
+                                  color: colorBackgroundPokemon[
+                                          pokemon.type!.first] ??
+                                      Colors.grey,
+                                ),
+                              ],
                             ),
-                            PokemonDetailWidget(
-                              title: "Candy",
-                              value: pokemon.candy!,
-                            ),
-                            PokemonDetailWidget(
-                              title: "Egg",
-                              value: pokemon.egg!,
-                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 10,
+                              ),
+                              child: Column(
+                                children: [
+                                  pokemon.multipliers != null
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                              "Multipliers",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: colorBackgroundPokemon[
+                                                          pokemon
+                                                              .type!.first] ??
+                                                      Colors.grey),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ...pokemon.multipliers!
+                                                    .map((e) => ItemTypesWidget(
+                                                          type: e.toString(),
+                                                          color:
+                                                              colorBackgroundPokemon[
+                                                                  pokemon.type!
+                                                                      .first],
+                                                        ))
+                                                    .toList(),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : Container(),
+                                  pokemon.weaknesses != null
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                              "Weaknesses",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: colorBackgroundPokemon[
+                                                      pokemon.type!.first],
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ...pokemon.weaknesses!
+                                                    .map((e) => ItemTypesWidget(
+                                                          type: e,
+                                                          color:
+                                                              colorBackgroundPokemon[
+                                                                  pokemon.type!
+                                                                      .first],
+                                                        ))
+                                                    .toList(),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : Container(),
+                                  pokemon.nextEvolution != null
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                              "Next Evolution",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: colorBackgroundPokemon[
+                                                      pokemon.type!.first],
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ...pokemon.nextEvolution!
+                                                    .map((e) => ItemTypesWidget(
+                                                          type: e.name!,
+                                                          color:
+                                                              colorBackgroundPokemon[
+                                                                  pokemon.type!
+                                                                      .first],
+                                                        ))
+                                                    .toList(),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : Container(),
+                                  pokemon.prevEvolution != null
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                              "Prev Evolution",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                color: colorBackgroundPokemon[
+                                                    pokemon.type!.first],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ...pokemon.prevEvolution!
+                                                    .map((e) => ItemTypesWidget(
+                                                          type: e.name!,
+                                                          color:
+                                                              colorBackgroundPokemon[
+                                                                  pokemon.type!
+                                                                      .first],
+                                                        ))
+                                                    .toList(),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : Container(),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
